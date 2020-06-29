@@ -5,6 +5,6 @@
 - Windows Forms - фронтенд для клиента
 
 ## Скриншоты
-![Форма редактора](login_form.png)
-![Форма журнала](menu_form.png)
-![Форма конфигурации устройства](table_form.png)
+![Форма редактора](screenshots/editor_form.png)
+![Форма журнала](screenshots/journal_form.png)
+![Форма конфигурации устройства](screenshots/config_form.png)
