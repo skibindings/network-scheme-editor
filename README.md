@@ -6,5 +6,5 @@
 
 ## Скриншоты
 ![Форма редактора](screenshots/editor_form.png)
-![Форма журнала](screenshots/journal_form.png)
+![Форма журнала](screenshots/journal_form.PNG)
 ![Форма конфигурации устройства](screenshots/config_form.png)
