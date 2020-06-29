@@ -1,0 +1,480 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Network_SchemeModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Network_Connections">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="_Version" Type="int" Nullable="false" />
+          <Property Name="_From_Port_ID" Type="int" Nullable="false" />
+          <Property Name="_To_Port_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Network_Hardware">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="_Version" Type="int" Nullable="false" />
+          <Property Name="_Status" Type="bit" Nullable="false" />
+          <Property Name="_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="_Type" Type="int" Nullable="false" />
+          <Property Name="_Interface_X" Type="int" Nullable="false" />
+          <Property Name="_Interface_Y" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Network_Ports">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="_Version" Type="int" Nullable="false" />
+          <Property Name="_Status" Type="bit" Nullable="false" />
+          <Property Name="_Settings_ID" Type="int" Nullable="false" />
+          <Property Name="_Hardware_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Network_Settings">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="_Version" Type="int" Nullable="false" />
+          <Property Name="_IP" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="_Subnet_Mask" Type="int" Nullable="false" />
+          <Property Name="_Default_Gateway" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Network_Versions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="_Version_Number" Type="int" Nullable="false" />
+          <Property Name="_Date" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <Association Name="FK1">
+          <End Role="Network_Versions" Type="Self.Network_Versions" Multiplicity="1" />
+          <End Role="Network_Settings" Type="Self.Network_Settings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Network_Versions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Network_Settings">
+              <PropertyRef Name="_Version" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK2">
+          <End Role="Network_Versions" Type="Self.Network_Versions" Multiplicity="1" />
+          <End Role="Network_Ports" Type="Self.Network_Ports" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Network_Versions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Network_Ports">
+              <PropertyRef Name="_Version" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK3">
+          <End Role="Network_Versions" Type="Self.Network_Versions" Multiplicity="1" />
+          <End Role="Network_Hardware" Type="Self.Network_Hardware" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Network_Versions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Network_Hardware">
+              <PropertyRef Name="_Version" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK4">
+          <End Role="Network_Versions" Type="Self.Network_Versions" Multiplicity="1" />
+          <End Role="Network_Connections" Type="Self.Network_Connections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Network_Versions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Network_Connections">
+              <PropertyRef Name="_Version" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK5">
+          <End Role="Network_Settings" Type="Self.Network_Settings" Multiplicity="1" />
+          <End Role="Network_Ports" Type="Self.Network_Ports" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Network_Settings">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Network_Ports">
+              <PropertyRef Name="_Settings_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK6">
+          <End Role="Network_Hardware" Type="Self.Network_Hardware" Multiplicity="1" />
+          <End Role="Network_Ports" Type="Self.Network_Ports" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Network_Hardware">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Network_Ports">
+              <PropertyRef Name="_Hardware_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK7">
+          <End Role="Network_Ports" Type="Self.Network_Ports" Multiplicity="1" />
+          <End Role="Network_Connections" Type="Self.Network_Connections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Network_Ports">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Network_Connections">
+              <PropertyRef Name="_From_Port_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK8">
+          <End Role="Network_Ports" Type="Self.Network_Ports" Multiplicity="1" />
+          <End Role="Network_Connections" Type="Self.Network_Connections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Network_Ports">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Network_Connections">
+              <PropertyRef Name="_To_Port_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище Network_SchemeModelContainer">
+          <EntitySet Name="Network_Connections" EntityType="Self.Network_Connections" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Network_Hardware" EntityType="Self.Network_Hardware" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Network_Ports" EntityType="Self.Network_Ports" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Network_Settings" EntityType="Self.Network_Settings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Network_Versions" EntityType="Self.Network_Versions" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK1" Association="Self.FK1">
+            <End Role="Network_Versions" EntitySet="Network_Versions" />
+            <End Role="Network_Settings" EntitySet="Network_Settings" />
+          </AssociationSet>
+          <AssociationSet Name="FK2" Association="Self.FK2">
+            <End Role="Network_Versions" EntitySet="Network_Versions" />
+            <End Role="Network_Ports" EntitySet="Network_Ports" />
+          </AssociationSet>
+          <AssociationSet Name="FK3" Association="Self.FK3">
+            <End Role="Network_Versions" EntitySet="Network_Versions" />
+            <End Role="Network_Hardware" EntitySet="Network_Hardware" />
+          </AssociationSet>
+          <AssociationSet Name="FK4" Association="Self.FK4">
+            <End Role="Network_Versions" EntitySet="Network_Versions" />
+            <End Role="Network_Connections" EntitySet="Network_Connections" />
+          </AssociationSet>
+          <AssociationSet Name="FK5" Association="Self.FK5">
+            <End Role="Network_Settings" EntitySet="Network_Settings" />
+            <End Role="Network_Ports" EntitySet="Network_Ports" />
+          </AssociationSet>
+          <AssociationSet Name="FK6" Association="Self.FK6">
+            <End Role="Network_Hardware" EntitySet="Network_Hardware" />
+            <End Role="Network_Ports" EntitySet="Network_Ports" />
+          </AssociationSet>
+          <AssociationSet Name="FK7" Association="Self.FK7">
+            <End Role="Network_Ports" EntitySet="Network_Ports" />
+            <End Role="Network_Connections" EntitySet="Network_Connections" />
+          </AssociationSet>
+          <AssociationSet Name="FK8" Association="Self.FK8">
+            <End Role="Network_Ports" EntitySet="Network_Ports" />
+            <End Role="Network_Connections" EntitySet="Network_Connections" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Network_SchemeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Network_Connections">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="C_Version" Type="Int32" Nullable="false" />
+          <Property Name="C_From_Port_ID" Type="Int32" Nullable="false" />
+          <Property Name="C_To_Port_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Network_Versions" Relationship="Self.FK4" FromRole="Network_Connections" ToRole="Network_Versions" />
+          <NavigationProperty Name="Network_Ports" Relationship="Self.FK7" FromRole="Network_Connections" ToRole="Network_Ports" />
+          <NavigationProperty Name="Network_Ports1" Relationship="Self.FK8" FromRole="Network_Connections" ToRole="Network_Ports" />
+        </EntityType>
+        <EntityType Name="Network_Hardware">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="C_Version" Type="Int32" Nullable="false" />
+          <Property Name="C_Status" Type="Boolean" Nullable="false" />
+          <Property Name="C_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="C_Type" Type="Int32" Nullable="false" />
+          <Property Name="C_Interface_X" Type="Int32" Nullable="false" />
+          <Property Name="C_Interface_Y" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Network_Versions" Relationship="Self.FK3" FromRole="Network_Hardware" ToRole="Network_Versions" />
+          <NavigationProperty Name="Network_Ports" Relationship="Self.FK6" FromRole="Network_Hardware" ToRole="Network_Ports" />
+        </EntityType>
+        <EntityType Name="Network_Ports">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="C_Version" Type="Int32" Nullable="false" />
+          <Property Name="C_Status" Type="Boolean" Nullable="false" />
+          <Property Name="C_Settings_ID" Type="Int32" Nullable="false" />
+          <Property Name="C_Hardware_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Network_Connections" Relationship="Self.FK7" FromRole="Network_Ports" ToRole="Network_Connections" />
+          <NavigationProperty Name="Network_Connections1" Relationship="Self.FK8" FromRole="Network_Ports" ToRole="Network_Connections" />
+          <NavigationProperty Name="Network_Hardware" Relationship="Self.FK6" FromRole="Network_Ports" ToRole="Network_Hardware" />
+          <NavigationProperty Name="Network_Versions" Relationship="Self.FK2" FromRole="Network_Ports" ToRole="Network_Versions" />
+          <NavigationProperty Name="Network_Settings" Relationship="Self.FK5" FromRole="Network_Ports" ToRole="Network_Settings" />
+        </EntityType>
+        <EntityType Name="Network_Settings">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="C_Version" Type="Int32" Nullable="false" />
+          <Property Name="C_IP" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="C_Subnet_Mask" Type="Int32" Nullable="false" />
+          <Property Name="C_Default_Gateway" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Network_Ports" Relationship="Self.FK5" FromRole="Network_Settings" ToRole="Network_Ports" />
+          <NavigationProperty Name="Network_Versions" Relationship="Self.FK1" FromRole="Network_Settings" ToRole="Network_Versions" />
+        </EntityType>
+        <EntityType Name="Network_Versions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="C_Version_Number" Type="Int32" Nullable="false" />
+          <Property Name="C_Date" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Network_Connections" Relationship="Self.FK4" FromRole="Network_Versions" ToRole="Network_Connections" />
+          <NavigationProperty Name="Network_Hardware" Relationship="Self.FK3" FromRole="Network_Versions" ToRole="Network_Hardware" />
+          <NavigationProperty Name="Network_Ports" Relationship="Self.FK2" FromRole="Network_Versions" ToRole="Network_Ports" />
+          <NavigationProperty Name="Network_Settings" Relationship="Self.FK1" FromRole="Network_Versions" ToRole="Network_Settings" />
+        </EntityType>
+        <Association Name="FK4">
+          <End Role="Network_Versions" Type="Self.Network_Versions" Multiplicity="1" />
+          <End Role="Network_Connections" Type="Self.Network_Connections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Network_Versions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Network_Connections">
+              <PropertyRef Name="C_Version" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK7">
+          <End Role="Network_Ports" Type="Self.Network_Ports" Multiplicity="1" />
+          <End Role="Network_Connections" Type="Self.Network_Connections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Network_Ports">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Network_Connections">
+              <PropertyRef Name="C_From_Port_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK8">
+          <End Role="Network_Ports" Type="Self.Network_Ports" Multiplicity="1" />
+          <End Role="Network_Connections" Type="Self.Network_Connections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Network_Ports">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Network_Connections">
+              <PropertyRef Name="C_To_Port_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK3">
+          <End Role="Network_Versions" Type="Self.Network_Versions" Multiplicity="1" />
+          <End Role="Network_Hardware" Type="Self.Network_Hardware" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Network_Versions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Network_Hardware">
+              <PropertyRef Name="C_Version" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK6">
+          <End Role="Network_Hardware" Type="Self.Network_Hardware" Multiplicity="1" />
+          <End Role="Network_Ports" Type="Self.Network_Ports" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Network_Hardware">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Network_Ports">
+              <PropertyRef Name="C_Hardware_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK2">
+          <End Role="Network_Versions" Type="Self.Network_Versions" Multiplicity="1" />
+          <End Role="Network_Ports" Type="Self.Network_Ports" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Network_Versions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Network_Ports">
+              <PropertyRef Name="C_Version" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK5">
+          <End Role="Network_Settings" Type="Self.Network_Settings" Multiplicity="1" />
+          <End Role="Network_Ports" Type="Self.Network_Ports" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Network_Settings">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Network_Ports">
+              <PropertyRef Name="C_Settings_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK1">
+          <End Role="Network_Versions" Type="Self.Network_Versions" Multiplicity="1" />
+          <End Role="Network_Settings" Type="Self.Network_Settings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Network_Versions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Network_Settings">
+              <PropertyRef Name="C_Version" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Network_SchemeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Network_Connections" EntityType="Self.Network_Connections" />
+          <EntitySet Name="Network_Hardware" EntityType="Self.Network_Hardware" />
+          <EntitySet Name="Network_Ports" EntityType="Self.Network_Ports" />
+          <EntitySet Name="Network_Settings" EntityType="Self.Network_Settings" />
+          <EntitySet Name="Network_Versions" EntityType="Self.Network_Versions" />
+          <AssociationSet Name="FK4" Association="Self.FK4">
+            <End Role="Network_Versions" EntitySet="Network_Versions" />
+            <End Role="Network_Connections" EntitySet="Network_Connections" />
+          </AssociationSet>
+          <AssociationSet Name="FK7" Association="Self.FK7">
+            <End Role="Network_Ports" EntitySet="Network_Ports" />
+            <End Role="Network_Connections" EntitySet="Network_Connections" />
+          </AssociationSet>
+          <AssociationSet Name="FK8" Association="Self.FK8">
+            <End Role="Network_Ports" EntitySet="Network_Ports" />
+            <End Role="Network_Connections" EntitySet="Network_Connections" />
+          </AssociationSet>
+          <AssociationSet Name="FK3" Association="Self.FK3">
+            <End Role="Network_Versions" EntitySet="Network_Versions" />
+            <End Role="Network_Hardware" EntitySet="Network_Hardware" />
+          </AssociationSet>
+          <AssociationSet Name="FK6" Association="Self.FK6">
+            <End Role="Network_Hardware" EntitySet="Network_Hardware" />
+            <End Role="Network_Ports" EntitySet="Network_Ports" />
+          </AssociationSet>
+          <AssociationSet Name="FK2" Association="Self.FK2">
+            <End Role="Network_Versions" EntitySet="Network_Versions" />
+            <End Role="Network_Ports" EntitySet="Network_Ports" />
+          </AssociationSet>
+          <AssociationSet Name="FK5" Association="Self.FK5">
+            <End Role="Network_Settings" EntitySet="Network_Settings" />
+            <End Role="Network_Ports" EntitySet="Network_Ports" />
+          </AssociationSet>
+          <AssociationSet Name="FK1" Association="Self.FK1">
+            <End Role="Network_Versions" EntitySet="Network_Versions" />
+            <End Role="Network_Settings" EntitySet="Network_Settings" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Network_SchemeModelContainer" CdmEntityContainer="Network_SchemeEntities">
+          <EntitySetMapping Name="Network_Connections">
+            <EntityTypeMapping TypeName="Network_SchemeModel.Network_Connections">
+              <MappingFragment StoreEntitySet="Network_Connections">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="C_Version" ColumnName="_Version" />
+                <ScalarProperty Name="C_From_Port_ID" ColumnName="_From_Port_ID" />
+                <ScalarProperty Name="C_To_Port_ID" ColumnName="_To_Port_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Network_Hardware">
+            <EntityTypeMapping TypeName="Network_SchemeModel.Network_Hardware">
+              <MappingFragment StoreEntitySet="Network_Hardware">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="C_Version" ColumnName="_Version" />
+                <ScalarProperty Name="C_Status" ColumnName="_Status" />
+                <ScalarProperty Name="C_Name" ColumnName="_Name" />
+                <ScalarProperty Name="C_Type" ColumnName="_Type" />
+                <ScalarProperty Name="C_Interface_X" ColumnName="_Interface_X" />
+                <ScalarProperty Name="C_Interface_Y" ColumnName="_Interface_Y" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Network_Ports">
+            <EntityTypeMapping TypeName="Network_SchemeModel.Network_Ports">
+              <MappingFragment StoreEntitySet="Network_Ports">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="C_Version" ColumnName="_Version" />
+                <ScalarProperty Name="C_Status" ColumnName="_Status" />
+                <ScalarProperty Name="C_Settings_ID" ColumnName="_Settings_ID" />
+                <ScalarProperty Name="C_Hardware_ID" ColumnName="_Hardware_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Network_Settings">
+            <EntityTypeMapping TypeName="Network_SchemeModel.Network_Settings">
+              <MappingFragment StoreEntitySet="Network_Settings">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="C_Version" ColumnName="_Version" />
+                <ScalarProperty Name="C_IP" ColumnName="_IP" />
+                <ScalarProperty Name="C_Subnet_Mask" ColumnName="_Subnet_Mask" />
+                <ScalarProperty Name="C_Default_Gateway" ColumnName="_Default_Gateway" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Network_Versions">
+            <EntityTypeMapping TypeName="Network_SchemeModel.Network_Versions">
+              <MappingFragment StoreEntitySet="Network_Versions">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="C_Version_Number" ColumnName="_Version_Number" />
+                <ScalarProperty Name="C_Date" ColumnName="_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

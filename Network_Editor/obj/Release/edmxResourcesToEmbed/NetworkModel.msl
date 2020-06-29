@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище Network_SchemeModelContainer" CdmEntityContainer="Network_SchemeEntities">
+    <EntitySetMapping Name="Network_Connections">
+      <EntityTypeMapping TypeName="Network_SchemeModel.Network_Connections">
+        <MappingFragment StoreEntitySet="Network_Connections">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="C_Version" ColumnName="_Version" />
+          <ScalarProperty Name="C_From_Port_ID" ColumnName="_From_Port_ID" />
+          <ScalarProperty Name="C_To_Port_ID" ColumnName="_To_Port_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Network_Hardware">
+      <EntityTypeMapping TypeName="Network_SchemeModel.Network_Hardware">
+        <MappingFragment StoreEntitySet="Network_Hardware">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="C_Version" ColumnName="_Version" />
+          <ScalarProperty Name="C_Status" ColumnName="_Status" />
+          <ScalarProperty Name="C_Name" ColumnName="_Name" />
+          <ScalarProperty Name="C_Type" ColumnName="_Type" />
+          <ScalarProperty Name="C_Interface_X" ColumnName="_Interface_X" />
+          <ScalarProperty Name="C_Interface_Y" ColumnName="_Interface_Y" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Network_Ports">
+      <EntityTypeMapping TypeName="Network_SchemeModel.Network_Ports">
+        <MappingFragment StoreEntitySet="Network_Ports">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="C_Version" ColumnName="_Version" />
+          <ScalarProperty Name="C_Status" ColumnName="_Status" />
+          <ScalarProperty Name="C_Settings_ID" ColumnName="_Settings_ID" />
+          <ScalarProperty Name="C_Hardware_ID" ColumnName="_Hardware_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Network_Settings">
+      <EntityTypeMapping TypeName="Network_SchemeModel.Network_Settings">
+        <MappingFragment StoreEntitySet="Network_Settings">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="C_Version" ColumnName="_Version" />
+          <ScalarProperty Name="C_IP" ColumnName="_IP" />
+          <ScalarProperty Name="C_Subnet_Mask" ColumnName="_Subnet_Mask" />
+          <ScalarProperty Name="C_Default_Gateway" ColumnName="_Default_Gateway" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Network_Versions">
+      <EntityTypeMapping TypeName="Network_SchemeModel.Network_Versions">
+        <MappingFragment StoreEntitySet="Network_Versions">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="C_Version_Number" ColumnName="_Version_Number" />
+          <ScalarProperty Name="C_Date" ColumnName="_Date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
